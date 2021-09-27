@@ -10,7 +10,7 @@ dataLayers provide a uniformed way for tracking and attribution scripts, such as
 
 This project is installed via [BigCommerce's Script Manager](https://support.bigcommerce.com/s/article/Using-Script-Manager). The script should be loaded on all pages.
 
-##
+## Definitions
 
 _Script variable definitions coming soon._
 
