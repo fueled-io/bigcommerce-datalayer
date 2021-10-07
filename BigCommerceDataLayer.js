@@ -96,6 +96,10 @@ function onProductListView(products) {
         };
       }),
     },
+    shopper: {
+      customer_id: analyticsData.userId,
+      email: analyticsData.userId,
+    },
   });
 }
 
@@ -109,6 +113,10 @@ function onProductClick(productName) {
           item_name: productName,
         },
       ],
+    },
+    shopper: {
+      customer_id: analyticsData.userId,
+      email: analyticsData.userId,
     },
   });
 }
@@ -128,9 +136,14 @@ function onProductDetailsView() {
         },
       ],
     },
+    shopper: {
+      customer_id: analyticsData.userId,
+      email: analyticsData.userId,
+    },
   });
 }
 
+// Measure when a product is added to a shopping cart
 function onAddToCart(productId) {
   dataLayer.push({
     event: "add_to_cart",
@@ -145,6 +158,10 @@ function onAddToCart(productId) {
         },
       ],
     },
+    shopper: {
+      customer_id: analyticsData.userId,
+      email: analyticsData.userId,
+    },
   });
 }
 
@@ -152,7 +169,11 @@ function onRemoveFromCart(cartItemId) {
   dataLayer.push({
     event: "remove_from_cart",
     ecommerce: {
-      cart_item_id: cartItemId,      
+      cart_item_id: cartItemId,
+    },
+    shopper: {
+      customer_id: analyticsData.userId,
+      email: analyticsData.userId,
     },
   });
 }
@@ -161,7 +182,11 @@ function onCheckoutStarted() {
   dataLayer.push({
     event: "begin_checkout",
     ecommerce: {
-      checkout_id: "{{checkout.id}}",
+      items: analyticsData.products,
+    },
+    shopper: {
+      customer_id: analyticsData.userId,
+      email: analyticsData.userId,
     },
   });
 }
@@ -170,7 +195,13 @@ function onPurchase() {
   dataLayer.push({
     event: "purchase",
     ecommerce: {
-      order_id: "{{checkout.order.id}}",
+      purchase: {
+        products: analyticsData.products,
+      },
+    },
+    shopper: {
+      customer_id: analyticsData.userId,
+      email: analyticsData.userId,
     },
   });
 }
