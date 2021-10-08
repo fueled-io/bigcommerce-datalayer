@@ -1,3 +1,6 @@
+var ready;
+var analyticsData;
+
 if (!window.dataLayer) window.dataLayer = [];
 var dataLayer = window.dataLayer;
 dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
@@ -12,8 +15,8 @@ function htmlDecode(input) {
 
 var pageType = "{{page_type}}";
 var categoryProducts = "{{json category.products}}";
-var cartProducts = "{{json cart.items}}";
-var userEmail = "{{cutomer.email}}" || null;
+// var cartProducts = "{{json cart.items}}";
+// var userEmail = "{{cutomer.email}}" || null;
 
 function addProductEventListeners() {
   var productDetailsButton =
@@ -61,6 +64,8 @@ function addProductEventListeners() {
   }
 }
 
+ready(".body", addProductEventListeners);
+
 if (pageType === "category") {
   onProductListView(htmlDecode(categoryProducts));
 } else if (pageType === "product") {
@@ -69,6 +74,8 @@ if (pageType === "category") {
   onCheckoutStarted();
 } else if (pageType === "orderconfirmation") {
   onPurchase();
+} else if (pageType === "cart") {
+  onViewCart();
 }
 
 // Measure product/item list views/impressions
@@ -76,7 +83,7 @@ function onProductListView(products) {
   dataLayer.push({
     event: "view_item_list",
     ecommerce: {
-      items: products.map((item, key) => {
+      items: products.map((item) => {
         var categoryArray = item.category.map((category, key) => ({
           [`item_category${key + 1}`]: category,
         }));
@@ -99,6 +106,7 @@ function onProductListView(products) {
     shopper: {
       customer_id: analyticsData.userId,
       email: analyticsData.userId,
+      externalCustomerId: analyticsData.userId,
     },
   });
 }
@@ -117,6 +125,7 @@ function onProductClick(productName) {
     shopper: {
       customer_id: analyticsData.userId,
       email: analyticsData.userId,
+      externalCustomerId: analyticsData.userId,
     },
   });
 }
@@ -139,6 +148,23 @@ function onProductDetailsView() {
     shopper: {
       customer_id: analyticsData.userId,
       email: analyticsData.userId,
+      externalCustomerId: analyticsData.userId,
+    },
+  });
+}
+
+
+// This event signifies that a user viewed their cart.
+function onViewCart() {
+  dataLayer.push({
+    event: "view_cart",
+    ecommerce: {
+      items: analyticsData.products,
+    },
+    shopper: {
+      customer_id: analyticsData.userId,
+      email: analyticsData.userId,
+      externalCustomerId: analyticsData.userId,
     },
   });
 }
@@ -161,6 +187,7 @@ function onAddToCart(productId) {
     shopper: {
       customer_id: analyticsData.userId,
       email: analyticsData.userId,
+      externalCustomerId: analyticsData.userId,
     },
   });
 }
@@ -174,6 +201,7 @@ function onRemoveFromCart(cartItemId) {
     shopper: {
       customer_id: analyticsData.userId,
       email: analyticsData.userId,
+      externalCustomerId: analyticsData.userId,
     },
   });
 }
@@ -187,6 +215,7 @@ function onCheckoutStarted() {
     shopper: {
       customer_id: analyticsData.userId,
       email: analyticsData.userId,
+      externalCustomerId: analyticsData.userId,
     },
   });
 }
@@ -202,6 +231,7 @@ function onPurchase() {
     shopper: {
       customer_id: analyticsData.userId,
       email: analyticsData.userId,
+      externalCustomerId: analyticsData.userId,
     },
   });
 }
