@@ -1,24 +1,14 @@
-var ready;
-var analyticsData;
-
 if (!window.dataLayer) window.dataLayer = [];
-var dataLayer = window.dataLayer;
 dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
 
+var dataLayer = window.dataLayer;
+var analyticsData = window.analyticsData;
+
 // Assets
-
-function htmlDecode(input) {
-  var parsedInput = input.replace(/(\r\n|\n|\r)/gm, "");
-  var doc = new DOMParser().parseFromString(parsedInput, "text/html");
-  return JSON.parse(doc.documentElement.textContent);
-}
-
-var pageType = "{{page_type}}";
-var categoryProducts = "{{json category.products}}";
 // var cartProducts = "{{json cart.items}}";
 // var userEmail = "{{cutomer.email}}" || null;
 
-function addProductEventListeners() {
+export function addProductEventListeners() {
   var productDetailsButton =
     document.getElementsByClassName("card-figure__link") || [];
   var mainPageAddButton =
@@ -64,22 +54,8 @@ function addProductEventListeners() {
   }
 }
 
-ready(".body", addProductEventListeners);
-
-if (pageType === "category") {
-  onProductListView(htmlDecode(categoryProducts));
-} else if (pageType === "product") {
-  onProductDetailsView();
-} else if (pageType === "checkout") {
-  onCheckoutStarted();
-} else if (pageType === "orderconfirmation") {
-  onPurchase();
-} else if (pageType === "cart") {
-  onViewCart();
-}
-
 // Measure product/item list views/impressions
-function onProductListView(products) {
+export function onProductListView(products) {
   dataLayer.push({
     event: "view_item_list",
     ecommerce: {
@@ -112,7 +88,7 @@ function onProductListView(products) {
 }
 
 // Call this function when a user clicks on a product link
-function onProductClick(productName) {
+export function onProductClick(productName) {
   dataLayer.push({
     event: "select_item",
     ecommerce: {
@@ -131,7 +107,7 @@ function onProductClick(productName) {
 }
 
 // Measure a view of product details. This example assumes the detail view occurs on pageload,
-function onProductDetailsView() {
+export function onProductDetailsView() {
   dataLayer.push({
     event: "view_item",
     ecommerce: {
@@ -155,7 +131,7 @@ function onProductDetailsView() {
 
 
 // This event signifies that a user viewed their cart.
-function onViewCart() {
+export function onViewCart() {
   dataLayer.push({
     event: "view_cart",
     ecommerce: {
@@ -170,7 +146,7 @@ function onViewCart() {
 }
 
 // Measure when a product is added to a shopping cart
-function onAddToCart(productId) {
+export function onAddToCart(productId) {
   dataLayer.push({
     event: "add_to_cart",
     ecommerce: {
@@ -192,7 +168,7 @@ function onAddToCart(productId) {
   });
 }
 
-function onRemoveFromCart(cartItemId) {
+export function onRemoveFromCart(cartItemId) {
   dataLayer.push({
     event: "remove_from_cart",
     ecommerce: {
@@ -206,7 +182,7 @@ function onRemoveFromCart(cartItemId) {
   });
 }
 
-function onCheckoutStarted() {
+export function onCheckoutStarted() {
   dataLayer.push({
     event: "begin_checkout",
     ecommerce: {
@@ -220,7 +196,7 @@ function onCheckoutStarted() {
   });
 }
 
-function onPurchase() {
+export function onPurchase() {
   dataLayer.push({
     event: "purchase",
     ecommerce: {

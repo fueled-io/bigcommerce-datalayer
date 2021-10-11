@@ -41,3 +41,9 @@ export function check() {
   }
 }
 
+export function htmlDecode(input) {
+  var parsedInput = input.replace(/(\r\n|\n|\r)/gm, "");
+  var doc = new DOMParser().parseFromString(parsedInput, "text/html");
+  return JSON.parse(doc.documentElement.textContent);
+}
+
