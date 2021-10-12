@@ -7,12 +7,14 @@
     "build": "webpack --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "uglifyjs-webpack-plugin": "^2.2.0"
+  },
   "devDependencies": {
     "eslint": "^7.32.0",
     "webpack": "^5.58.1",
     "webpack-cli": "^4.9.0"
-  },   
+  },
   "author": "",
   "license": "ISC"
 }

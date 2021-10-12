@@ -1,19 +1,19 @@
-import { ready } from "./functions";
-import { addProductEventListeners } from "./bigCommerceDataLayer";
+import { ready } from './functions';
+import { addProductEventListeners } from './bigCommerceDataLayer';
 
-const mailSelector = document.getElementsByClassName("customerView-body");
+const mailSelector = document.getElementsByClassName('customerView-body');
 const { checkoutId } = window.checkoutConfig;
-let userEmail = "";
+let userEmail = '';
 let analyticsData = {};
 const products = [];
 
 async function getData() {
   const url = `/api/storefront/checkouts/${checkoutId}`;
   const response = await fetch(url, {
-    method: "GET",
-    cache: "no-cache",
+    method: 'GET',
+    cache: 'no-cache',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   });
   return response.json();
@@ -49,7 +49,7 @@ export function beforeStart() {
     }
   });
 
-  ready(".customerView-body", function () {
+  ready('.customerView-body', function () {
     if (mailSelector && mailSelector[0]) {
       console.log(1);
       userEmail = mailSelector[0].innerHTML;
@@ -58,7 +58,7 @@ export function beforeStart() {
 
     analyticsData.step = 1;
 
-    window.analytics.track("Checkout Step Completed", {
+    window.analytics.track('Checkout Step Completed', {
       ...analyticsData,
     });
 
@@ -67,13 +67,13 @@ export function beforeStart() {
     });
   });
 
-  ready(".checkout-step--payment", function () {
+  ready('.checkout-step--payment', function () {
     if (checkoutId) {
-      window.analytics.track("Checkout Started", {
+      window.analytics.track('Checkout Started', {
         ...analyticsData,
       });
     }
   });
 
-  ready(".body", addProductEventListeners);
+  ready('.body', addProductEventListeners);
 }

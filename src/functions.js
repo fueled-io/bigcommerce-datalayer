@@ -1,8 +1,7 @@
 var listeners = [],
-    doc = window.document,
-    MutationObserver = window.MutationObserver || window.WebKitMutationObserver,
-    observer;
-
+  doc = window.document,
+  MutationObserver = window.MutationObserver || window.WebKitMutationObserver,
+  observer;
 
 export function ready(selector, fn) {
   // Store the selector and callback to be monitored
@@ -42,8 +41,7 @@ export function check() {
 }
 
 export function htmlDecode(input) {
-  var parsedInput = input.replace(/(\r\n|\n|\r)/gm, "");
-  var doc = new DOMParser().parseFromString(parsedInput, "text/html");
+  var parsedInput = input.replace(/(\r\n|\n|\r)/gm, '');
+  var doc = new DOMParser().parseFromString(parsedInput, 'text/html');
   return JSON.parse(doc.documentElement.textContent);
 }
-
