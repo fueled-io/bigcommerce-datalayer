@@ -4,10 +4,6 @@ dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
 var dataLayer = window.dataLayer;
 var analyticsData = window.analyticsData;
 
-// Assets
-// var cartProducts = "{{json cart.items}}";
-// var userEmail = "{{cutomer.email}}" || null;
-
 export function addProductEventListeners() {
   var productDetailsButton =
     document.getElementsByClassName('card-figure__link') || [];
@@ -54,6 +50,14 @@ export function addProductEventListeners() {
   }
 }
 
+function getShopper() {
+  return {
+    customer_id: analyticsData.userId || '{{customer.email}}',
+    email: analyticsData.userId || '{{customer.email}}',
+    externalCustomerId: '{{customer.id}}',
+  };
+}
+
 // Measure product/item list views/impressions
 export function onProductListView(products) {
   dataLayer.push({
@@ -79,11 +83,7 @@ export function onProductListView(products) {
         };
       }),
     },
-    shopper: {
-      customer_id: analyticsData.userId,
-      email: analyticsData.userId,
-      externalCustomerId: analyticsData.userId,
-    },
+    shopper: { ...getShopper() },
   });
 }
 
@@ -98,11 +98,7 @@ export function onProductClick(productName) {
         },
       ],
     },
-    shopper: {
-      customer_id: analyticsData.userId,
-      email: analyticsData.userId,
-      externalCustomerId: analyticsData.userId,
-    },
+    shopper: getShopper(),
   });
 }
 
@@ -121,11 +117,7 @@ export function onProductDetailsView() {
         },
       ],
     },
-    shopper: {
-      customer_id: analyticsData.userId,
-      email: analyticsData.userId,
-      externalCustomerId: analyticsData.userId,
-    },
+    shopper: getShopper(),
   });
 }
 
@@ -136,11 +128,7 @@ export function onViewCart() {
     ecommerce: {
       items: analyticsData.products,
     },
-    shopper: {
-      customer_id: analyticsData.userId,
-      email: analyticsData.userId,
-      externalCustomerId: analyticsData.userId,
-    },
+    shopper: getShopper(),
   });
 }
 
@@ -159,11 +147,7 @@ export function onAddToCart(productId) {
         },
       ],
     },
-    shopper: {
-      customer_id: analyticsData.userId,
-      email: analyticsData.userId,
-      externalCustomerId: analyticsData.userId,
-    },
+    shopper: getShopper(),
   });
 }
 
@@ -173,11 +157,7 @@ export function onRemoveFromCart(cartItemId) {
     ecommerce: {
       cart_item_id: cartItemId,
     },
-    shopper: {
-      customer_id: analyticsData.userId,
-      email: analyticsData.userId,
-      externalCustomerId: analyticsData.userId,
-    },
+    shopper: getShopper(),
   });
 }
 
@@ -187,11 +167,7 @@ export function onCheckoutStarted() {
     ecommerce: {
       items: analyticsData.products,
     },
-    shopper: {
-      customer_id: analyticsData.userId,
-      email: analyticsData.userId,
-      externalCustomerId: analyticsData.userId,
-    },
+    shopper: getShopper(),
   });
 }
 
@@ -203,10 +179,6 @@ export function onPurchase() {
         products: analyticsData.products,
       },
     },
-    shopper: {
-      customer_id: analyticsData.userId,
-      email: analyticsData.userId,
-      externalCustomerId: analyticsData.userId,
-    },
+    shopper: getShopper(),
   });
 }
