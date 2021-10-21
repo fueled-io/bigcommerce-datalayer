@@ -1,0 +1,70 @@
+{
+    "$id": "https://fueled.io/schemas/datalayer/v1.0",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "$defs": {
+        "event": {
+            "type": "string",
+            "description": "Name of event type"
+        },
+        "shopper": {
+            "customer_id": {
+                "type": "string",
+                "description": "ID of customer for another system",
+                "example": "test@gmail.com"
+            },
+            "email": {
+                "type": "string",
+                "description": "Customer email address",
+                "example": "test@gmail.com"
+            },
+            "externalCustomerId": {
+                "type": "number",
+                "description": "BigCommerce ID of the customer ",
+                "example": 7
+            }
+        },
+        "ecommerce": {
+            "item_name": {
+                "type": "string",
+                "description": "Displayed name of the product",
+                "example": "[Sample] Fog Linen Chambray Towel - Beige Stripe"
+            },
+            "item_id": {
+                "type": "number",
+                "description": "Unique ID for the product",
+                "example": 77
+            },
+            "price": {
+                "type": "number",
+                "description": "Product price value without tax",
+                "example": 49
+            },
+            "item_brand": {
+                "type": "string",
+                "description": "Product brand name",
+                "example": "Base"
+            },
+            "categories": {
+                "type": "array",
+                "description": "Array of product categories",
+                "example": 77
+            },
+            "item_list_name": {
+                "type": "string",
+                "description": "Category name of the product list",
+                "example": "Bath"
+            },
+            "item_list_id": {
+                "type": "number",
+                "description": "ID of the category list",
+                "example": 18
+            },
+            "item_variant": {
+                "type": "string",
+                "description": "Default product variant when no options are selected",
+                "example": "18"
+            }
+        }
+    }
+}
