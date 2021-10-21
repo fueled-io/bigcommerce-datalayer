@@ -50,6 +50,11 @@
                 "description": "Array of product categories",
                 "example": 77
             },
+            "item_category[id]":  {
+                "type": "string",
+                "description": "Category name of the product",
+                "example": "Shirts"
+            },
             "item_list_name": {
                 "type": "string",
                 "description": "Category name of the product list",
