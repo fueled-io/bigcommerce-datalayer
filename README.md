@@ -17,6 +17,16 @@ This dataLayer project implements Google's _"Google Analytics v4 Ecommerce Event
 
 This project is installed via [BigCommerce's Script Manager](https://support.bigcommerce.com/s/article/Using-Script-Manager). The script should be loaded on all pages. _(More detailed installation instructions coming soon.)_
 
+## Build
+
+To build and bundle the dataLayer from source, run:
+
+`npm install`
+
+and then
+
+`npm run build`
+
 ## Definitions
 
 _Script variable definitions coming soon._
