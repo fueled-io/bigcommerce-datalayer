@@ -27,9 +27,19 @@ and then
 
 `npm run build`
 
-## Definitions
+## Ecommerce Events Tracked via the dataLayer
 
-_Script variable definitions coming soon._
+* [Product/Item List Views/Impressions](https://developers.google.com/tag-manager/ecommerce-ga4#measure_productitem_list_viewsimpressions)
+* [Product/Item List Clicks](https://developers.google.com/tag-manager/ecommerce-ga4#measure_productitem_list_clicks)
+* [Product/Item Detail Views](https://developers.google.com/tag-manager/ecommerce-ga4#measure_viewsimpressions_of_productitem_details)
+* [Adds/Removes from Cart](https://developers.google.com/tag-manager/ecommerce-ga4#measure_additions_or_removals_from_a_shopping_cart)
+* [View Cart](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#view_cart)
+* Checkout Events exposed to the dataLayer
+  * The [begin_checkout](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#begin_checkout) event fires when the /checkout page loads
+  * The [add_payment_info](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#add_payment_info) fires when billing info is added during checkout
+* [Purchases](https://developers.google.com/tag-manager/ecommerce-ga4#measure_purchases)
+
+_Additional script variable definitions coming soon._
 
 ## Customization
 
