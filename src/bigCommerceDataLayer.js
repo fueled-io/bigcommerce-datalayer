@@ -78,8 +78,6 @@ export function onProductListView(products) {
           ...categories,
           item_list_name: '{{category.name}}',
           item_list_id: '{{category.id}}',
-          index: 1,
-          quantity: 1,
         };
       }),
     },

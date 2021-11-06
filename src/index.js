@@ -1,4 +1,4 @@
-import { ready, htmlDecode } from './functions';
+import { ready, htmlDecode } from './utils';
 import {
   onProductListView,
   onProductDetailsView,
@@ -6,22 +6,24 @@ import {
   onPurchase,
   onViewCart,
 } from './bigCommerceDataLayer';
-import { beforeStart } from './api';
+import { getCheckoutData } from './checkout-started';
 
 (function (window) {
   'use strict';
   window.ready = ready;
-  beforeStart();
+  addDataLayerListener(); // Listener for Push events
 })(this);
 
 var pageType = '{{page_type}}';
 var categoryProducts = '{{json category.products}}';
+ready('.body', addProductEventListeners); // Clicks listeners
 
 if (pageType === 'category') {
   onProductListView(htmlDecode(categoryProducts));
 } else if (pageType === 'product') {
   onProductDetailsView();
 } else if (pageType === 'checkout') {
+  getCheckoutData();
   onCheckoutStarted();
 } else if (pageType === 'orderconfirmation') {
   onPurchase();
