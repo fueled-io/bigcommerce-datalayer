@@ -1,6 +1,3 @@
-if (!window.dataLayer) window.dataLayer = [];
-dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
-
 var dataLayer = window.dataLayer;
 var analyticsData = window.analyticsData;
 

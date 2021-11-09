@@ -1,25 +1,21 @@
 const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const webpack = require('webpack');
 
-module.exports = {
-  mode: 'development',
-  entry: './src/index.js',
-  output: {
-    filename: 'bundle.min.js',
-    path: path.resolve(__dirname, 'dist'),
-    clean: true,
-  },
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new UglifyJsPlugin({
-        uglifyOptions: {
-          compress: {},
-          output: {
-            comments: false,
-          },
-        },
-      }),
-    ],
-  },
+module.exports = (env, argv) => {  
+  return {
+    mode: 'development',
+    entry: './src/index.js',
+    output: {
+      filename: 'dataLayer.min.js',
+      path: path.resolve(__dirname, 'dist'),
+      clean: true,
+    },
+    plugins: [new webpack.DefinePlugin({
+      WEBPACK_MODE: JSON.stringify(argv.mode),
+    })],
+    optimization: {
+      minimizer: [new TerserPlugin()]
+    }
+  }
 };
