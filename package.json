@@ -1,21 +1,23 @@
 {
   "name": "bigcommerce-datalayer",
   "version": "1.0.0",
+  "private": true,
   "description": "A dataLayer implementation for BigCommerce, based upon the [Google Analytics 4 Ecommerce specification](https://developers.google.com/analytics/devguides/collection/ga4/ecommerce).",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config webpack.config.js --mode=development",
+    "build-min": "webpack --config webpack.config.js --mode=production",
+    "build-test": "webpack --config webpack.config.js"
   },
   "dependencies": {
-    "ajv": "^8.6.3",
-    "uglifyjs-webpack-plugin": "^2.2.0"
+    "ajv": "^8.6.3"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
+    "terser-webpack-plugin": "^5.2.4",
     "webpack": "^5.58.1",
     "webpack-cli": "^4.9.0"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Fueled, Inc.",
+  "license": "GPLv3"
 }
