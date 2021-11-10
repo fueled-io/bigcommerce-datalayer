@@ -262,7 +262,7 @@ function addDataLayerListener(callback) {
 */
 
 const mailSelector = document.getElementsByClassName('customerView-body');
-const { checkoutId } = window.checkoutConfig;
+const checkoutId = (window.checkoutConfig && window.checkoutConfig.checkoutId) || undefined;
 let userEmail = '';
 const products = [];
 
