@@ -1,10 +1,10 @@
 import Ajv, { ValidationError } from 'ajv';
-const yotpoSchema = require('../schema/datalayer.schema.json');
+const dataLayerSchema = require('../schema/datalayer.schema.json');
 
 // Schema validation
 
 const ajv = new Ajv();
-ajv.addSchema(yotpoSchema);
+ajv.addSchema(dataLayerSchema);
 
 export default function validateDatalayerJson(object, type) {
   const validate = ajv.getSchema(`https://fueled.io/schemas/datalayer/v1.0#/$defs/${type}`);
