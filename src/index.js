@@ -1,6 +1,21 @@
 /* 
-  BigCommerce Utils 
+  Datalayer Utils 
 */
+
+if (!window.dataLayer) window.dataLayer = [];
+dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
+
+(function (window) {
+  'use strict';
+  window.ready = ready;
+  addDataLayerListener(); // Listener for Push events
+})(this);
+
+var pageType = '{{page_type}}';
+var categoryProducts = '{{json category.products}}';
+var dataLayer = window.dataLayer;
+var analyticsData = window.analyticsData;
+ready('.body', addProductEventListeners); // Add Product event listener
 
 var listeners = [],
   doc = window.document,
@@ -59,11 +74,8 @@ function getShopper() {
 }
 
 /*
-  DataLayer Events
+  Product Event listener
 */
-
-var dataLayer = window.dataLayer;
-var analyticsData = window.analyticsData;
 
 function addProductEventListeners() {
   var productDetailsButton =
@@ -110,6 +122,10 @@ function addProductEventListeners() {
     );
   }
 }
+
+/*
+  Datalayer events
+*/
 
 // Measure product/item list views/impressions
 function onProductListView(products) {
@@ -235,9 +251,7 @@ function onPurchase() {
 }
 
 
-
-// DataLayer Listener
-
+// Test file config
 if (WEBPACK_MODE === 'production' || WEBPACK_MODE === 'development') {
   validateDatalayerJson = () => ({});
 } else {
@@ -247,7 +261,7 @@ if (WEBPACK_MODE === 'production' || WEBPACK_MODE === 'development') {
 function addDataLayerListener(callback) {
   dataLayer.push = function (e) {
     Array.prototype.push.call(dataLayer, e);
-    if (dataLayer && dataLayer.length > 0) {
+    if (dataLayer && dataLayer.length && dataLayer.length > 0) {
       const dataLayerLength = dataLayer.length;
       const lastAddedItem = dataLayer[dataLayerLength - 1];
       validateDatalayerJson(lastAddedItem, 'event');
@@ -267,15 +281,19 @@ let userEmail = '';
 const products = [];
 
 async function getData() {
-  const url = `/api/storefront/checkouts/${checkoutId}`;
-  const response = await fetch(url, {
-    method: 'GET',
-    cache: 'no-cache',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  return response.json();
+  if (checkoutId) {
+    const url = `/api/storefront/checkouts/${checkoutId}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.json();
+  } else {
+    return;
+  }
 }
 
 function getCheckoutData() {
@@ -317,19 +335,6 @@ function getCheckoutData() {
 /*
   BigCommerce Events Manager
 */
-
-(function (window) {
-  'use strict';
-  window.ready = ready;
-  addDataLayerListener(); // Listener for Push events
-})(this);
-
-if (!window.dataLayer) window.dataLayer = [];
-dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
-
-var pageType = '{{page_type}}';
-var categoryProducts = '{{json category.products}}';
-ready('.body', addProductEventListeners); // Clicks listeners
 
 if (pageType === 'category') {
   onProductListView(htmlDecode(categoryProducts));
