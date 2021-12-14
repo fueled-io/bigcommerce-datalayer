@@ -15,7 +15,14 @@ This dataLayer project implements Google's _"Google Analytics v4 Ecommerce Event
 
 ## Installation
 
-This project is installed via [BigCommerce's Script Manager](https://support.bigcommerce.com/s/article/Using-Script-Manager). The script should be loaded on all pages. _(More detailed installation instructions coming soon.)_
+This project is installed via [BigCommerce's Script Manager](https://support.bigcommerce.com/s/article/Using-Script-Manager). The script should be loaded on all pages.
+
+ 1. From your dashboard open the Storefront settings and under that, click into Script manager.
+ 2. Click the "Create Script" button
+ 3. Give the script a name and (optional) description, make sure it's running on **All Pages** and is set to **Essential**
+ 4. Select a script type of **Script** and in the bellow text box type in following `<script></script>`
+ 5. Paste your compiled script inside the script tags you added. `<script>Your code</script>`
+ 6. Save
 
 ## Build
 
