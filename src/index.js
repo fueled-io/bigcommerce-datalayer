@@ -1,25 +1,21 @@
 /* 
   Datalayer Utils 
 */
-(function() {
+(function () {
 
     var dataLayer = [];
     if (window.dataLayer) {
-        this.dataLayer = window.dataLayer;
-        this.dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
+        dataLayer = window.dataLayer;
+        dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
     }
-
-
-    (function(window) {
-        'use strict';
-        window.ready = ready;
-        addDataLayerListener(); // Listener for Push events
-    })(this);
+    
+    window.ready = ready;
+    addDataLayerListener(); // Listener for Push events
 
     var pageType = '{{page_type}}';
     var categoryProducts = '{{json category.products}}';
-    var dataLayer = window.dataLayer;
-    var analyticsData = window.analyticsData;
+    var analyticsData = window.analyticsData || [];
+    var validateDatalayerJson = () => ({});
 
     var listeners = [],
         doc = window.document,
@@ -156,7 +152,7 @@
                     };
                 }),
             },
-            shopper: {...getShopper() },
+            shopper: { ...getShopper() },
         });
     }
 
@@ -167,7 +163,7 @@
             ecommerce: {
                 items: [{
                     item_name: productName,
-                }, ],
+                },],
             },
             shopper: getShopper(),
         });
@@ -184,7 +180,7 @@
                     price: '{{product.price.without_tax.value}}',
                     item_category: '{{product.category}}',
                     item_variant: '{{product.sku}}',
-                }, ],
+                },],
             },
             shopper: getShopper(),
         });
@@ -195,7 +191,7 @@
         dataLayer.push({
             event: 'view_cart',
             ecommerce: {
-                items: analyticsData.products,
+                items: analyticsData.products || [],
             },
             shopper: getShopper(),
         });
@@ -212,7 +208,7 @@
                     price: '{{product.price.without_tax.value}}',
                     item_category: '{{product.category}}',
                     item_variant: '{{product.sku}}',
-                }, ],
+                },],
             },
             shopper: getShopper(),
         });
@@ -232,7 +228,7 @@
         dataLayer.push({
             event: 'begin_checkout',
             ecommerce: {
-                items: analyticsData.products,
+                items: analyticsData.products || [],
             },
             shopper: getShopper(),
         });
@@ -243,7 +239,7 @@
             event: 'purchase',
             ecommerce: {
                 purchase: {
-                    products: analyticsData.products,
+                    products: analyticsData.products || [],
                 },
             },
             shopper: getShopper(),
@@ -252,31 +248,35 @@
 
 
     // Test file config
-    if (WEBPACK_MODE === 'production') {
-        validateDatalayerJson = () => ({});
-    } else {
-        validateDatalayerJson = require('./testUtils');
-    }
+    /* eslint-disable */
+    // if (WEBPACK_MODE === 'production') {
+    //     validateDatalayerJson = () => ({});
+    // } else {
+    //     validateDatalayerJson = require('./testUtils');
+    // }
+    /* eslint-enable */
 
-    function addDataLayerListener(callback) {
-        dataLayer.push = function(e) {
+
+    function addDataLayerListener() {
+        dataLayer.push = function (e) {
             Array.prototype.push.call(dataLayer, e);
             if (dataLayer && dataLayer.length && dataLayer.length > 0) {
                 const dataLayerLength = dataLayer.length;
                 const lastAddedItem = dataLayer[dataLayerLength - 1];
+                console.log(lastAddedItem);
                 validateDatalayerJson(lastAddedItem, 'event');
                 validateDatalayerJson(lastAddedItem, 'ecommerce');
                 validateDatalayerJson(lastAddedItem, 'shopper');
             }
         };
-    };
+    }
 
     /*
     Checkout Started Events
     */
 
     const mailSelector = document.getElementsByClassName('customerView-body');
-    const checkoutId = (window.checkoutConfig && window.checkoutConfig.checkoutId) || undefined;
+    const checkoutId = '{{checkout.id}}' || undefined;
     let userEmail = '';
     const products = [];
 
@@ -298,7 +298,7 @@
 
     function getCheckoutData() {
         getData().then((data) => {
-            if (data.cart.lineItems.physicalItems.length) {
+            if (data.cart && data.cart.lineItems.physicalItems.length) {
                 for (const product of data.cart.lineItems.physicalItems) {
                     products.push({
                         product_id: product.productId,
