@@ -26,13 +26,11 @@ This project is installed via [BigCommerce's Script Manager](https://support.big
 
 ## Build
 
-To build and bundle the dataLayer from source, run:
+  To build and bundle the dataLayer from source, run (You will need [Node](https://nodejs.org/) installed):
 
-`npm install`
-
-and then
-
-`npm run build`
+`npm install`  this will install the required components
+`npm run build-min` this is compile the minified script into the `./dist` folder 
+`npm run build` this will create a copy of the script using Webpacks eval function
 
 ## Ecommerce Events Tracked via the dataLayer
 
