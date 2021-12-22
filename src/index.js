@@ -68,10 +68,15 @@
     }
 
     function getShopper() {
+
+        let name = '{{customer.name}}';
+            name = name.split(" ");
+        
         return {
-            customer_id: analyticsData.userId || '{{customer.email}}',
-            email: analyticsData.userId || '{{customer.email}}',
-            externalCustomerId: '{{customer.id}}',
+            customer_id: analyticsData.userId || '{{customer.id}}',
+            email: analyticsData.userEmail || '{{customer.email}}',
+            first_name: name[0],
+            last_name: name[1],
         };
     }
 
@@ -335,7 +340,7 @@
 
         if (mailSelector && mailSelector[0]) {
             userEmail = mailSelector[0].innerHTML;
-            analyticsData.userId = userEmail;
+            analyticsData.userId = userId;
         }
     }
 
