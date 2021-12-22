@@ -30,6 +30,11 @@
             }
         },
         "ecommerce": {
+            "cart_id": {
+                "type": "string",
+                "description": "Cart id",
+                "example": "6877cc6f-38f1-4317-8d99-2ffa4b4d7c3f"
+            },
             "item": {
                 "item_name": {
                     "type": "string",

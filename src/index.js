@@ -198,9 +198,11 @@
 
     // This event signifies that a user viewed their cart.
     function onViewCart() {
+        console.log('{{ cart_id }}')
         dataLayer.push({
             event: 'view_cart',
             ecommerce: {
+                cart_id: '{{ cart_id }}',
                 items: analyticsData.products || htmlDecode("{{json cart.items}}") || [],
             },
             shopper: getShopper(),
@@ -212,6 +214,7 @@
         dataLayer.push({
             event: 'add_to_cart',
             ecommerce: {
+                cart_id: '{{ cart_id }}',
                 items: [{
                     item_name: '{{product.title}}', // Name or ID is required.
                     item_id: productId,
@@ -228,6 +231,7 @@
         dataLayer.push({
             event: 'remove_from_cart',
             ecommerce: {
+                cart_id: '{{ cart_id }}',
                 cart_item_id: cartItemId,
             },
             shopper: getShopper(),
@@ -238,6 +242,7 @@
         dataLayer.push({
             event: 'begin_checkout',
             ecommerce: {
+                cart_id: '{{ cart_id }}',
                 items: analyticsData.products || [],
             },
             shopper: getShopper(),
@@ -248,6 +253,7 @@
         dataLayer.push({
             event: 'purchase',
             ecommerce: {
+                cart_id: '{{ cart_id }}',
                 purchase: {
                     products: analyticsData.products || [],
                 },
