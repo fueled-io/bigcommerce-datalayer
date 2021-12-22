@@ -68,10 +68,8 @@
     }
 
     function getShopper() {
-
         let name = '{{customer.name}}';
             name = name.split(" ");
-        
         return {
             customer_id: analyticsData.userId || '{{customer.id}}',
             email: analyticsData.userEmail || '{{customer.email}}',

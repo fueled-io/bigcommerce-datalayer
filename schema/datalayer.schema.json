@@ -9,19 +9,25 @@
         },
         "shopper": {
             "customer_id": {
-                "type": "string",
-                "description": "ID of customer for another system",
-                "example": "test@gmail.com"
+                "type": "number",
+                "description": "IBigCommerce ID of the customer ",
+                "example": 12345
             },
             "email": {
                 "type": "string",
                 "description": "Customer email address",
                 "example": "test@gmail.com"
             },
-            "externalCustomerId": {
-                "type": "number",
-                "description": "BigCommerce ID of the customer ",
-                "example": 7
+            "first_name": {
+                "type": "string",
+                "description": "First name of the customer",
+                "example": "John"
+            }
+            ,
+            "last_name": {
+                "type": "string",
+                "description": "Last name of the customer",
+                "example": "Doe"
             }
         },
         "ecommerce": {
