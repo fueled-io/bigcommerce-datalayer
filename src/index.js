@@ -198,7 +198,6 @@
 
     // This event signifies that a user viewed their cart.
     function onViewCart() {
-        console.log('{{ cart_id }}')
         dataLayer.push({
             event: 'view_cart',
             ecommerce: {
