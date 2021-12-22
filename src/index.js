@@ -83,14 +83,11 @@
     */
 
     function addProductEventListeners() {
-        var productDetailsButton =
-            document.getElementsByClassName('card-figure__link') || [];
-        var mainPageAddButton =
-            document.querySelectorAll("[data-button-type='add-cart']") || [];
-        var productPageAddButton = document.getElementById('form-action-addToCart');
-        var cartPageRemoveButton =
-            document.getElementsByClassName('cart-remove') || [];
-        var cartButton = document.getElementsByClassName('navUser-item--cart') || [];
+        var productDetailsButton = document.getElementsByClassName('card-figure__link') || [];  //Product card selector
+        var mainPageAddButton =    document.querySelectorAll("[data-button-type='add-cart']") || []; //Add to cart button selector
+        var productPageAddButton = document.getElementById('form-action-addToCart'); //Add to cart form selector
+        var cartPageRemoveButton = document.getElementsByClassName('cart-remove') || []; //Remove from cart button selector
+        var cartButton =           document.getElementsByClassName('navUser-item--cart') || []; //Show Cart selector
 
         // Product Details
         if (productDetailsButton.length > 0) {
