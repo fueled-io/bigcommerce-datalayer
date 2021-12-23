@@ -178,6 +178,10 @@
 
     // Measure a view of product details. This example assumes the detail view occurs on pageload,
     function onProductDetailsView() {
+        console.log('{{getImage product.main_image}}');
+        console.log('{{product.sku}}');
+        console.log('{{product.gtin}}');
+        console.log('{{product.url}}');
         dataLayer.push({
             event: 'view_item',
             ecommerce: {
@@ -352,6 +356,7 @@
         onProductListView(htmlDecode(categoryProducts));
     } else if (pageType === 'product') {
         onProductDetailsView();
+        console.log('wenis')
     } else if (pageType === 'checkout') {
         getCheckoutData();
         onCheckoutStarted();

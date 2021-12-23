@@ -80,6 +80,26 @@
                     "type": "string",
                     "description": "Default product variant when no options are selected",
                     "example": "18"
+                },
+                "product_image_url": {
+                    "type": "string",
+                    "description": "Product image url",
+                    "example": "https://website.com/images/test.png"
+                },
+                "product_url": {
+                    "type": "string",
+                    "description": "Product url",
+                    "example": "https://website.com/product"
+                },
+                "gtin": {
+                    "type": "string",
+                    "description": "product GTIN",
+                    "example": "87654321"
+                },
+                "sku": {
+                    "type": "string",
+                    "description": "Product SKU",
+                    "example": "ABC123"
                 }
             }
         }
