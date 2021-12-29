@@ -21,7 +21,7 @@ This project is installed via [BigCommerce's Script Manager](https://support.big
  2. Click the "Create Script" button
  3. Give the script a name and (optional) description, make sure it's running on **All Pages** and is set to **Essential**
  4. Select a script type of **Script** and in the bellow text box type in following `<script></script>`
- 5. Paste your (compiled script)[https://github.com/fueled-io/bigcommerce-datalayer/blob/main/dist/dataLayer.min.js] inside the script tags you added. `<script>Your code</script>`
+ 5. Paste your [compiled script](https://github.com/fueled-io/bigcommerce-datalayer/blob/main/dist/dataLayer.min.js) inside the script tags you added. `<script>Your code</script>`
  6. Save
 
 ## Build
