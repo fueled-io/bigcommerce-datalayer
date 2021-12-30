@@ -6,7 +6,7 @@ Brought to you by [Fueled Inc](https://fueled.io).
 
 ## Overview
 
-dataLayers provide a uniformed way for tracking and attribution scripts, such as Segment's Analatics.js library, to interact with your BigCommerce site. Implementing a dataLayer will ensure that all scripts use consistent attribution values and calculations. They can also cut down on custom code. Finally, they are exposed to Google Tag Manager, if you choose to implement tracking via GTM.
+dataLayers provide a uniformed way for tracking and attribution scripts, such as Segment's Analytics.js library, to interact with your BigCommerce site. Implementing a dataLayer will ensure that all scripts use consistent attribution values and calculations. They can also cut down on custom code. Finally, they are exposed to Google Tag Manager, if you choose to implement tracking via GTM.
 
 This dataLayer project implements Google's _"Google Analytics v4 Ecommerce Event Specification"_, as described in the following docs:
 
