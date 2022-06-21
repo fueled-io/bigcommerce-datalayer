@@ -1,11 +1,10 @@
 (function () {
 
-  var dataLayer = {};
-  if (window.dataLayer) {
-    window.dataLayer['eec'] = dataLayer;
-  } else {
-    window.dataLayer = {'eec': dataLayer};
-  }
+  var dataLayer = window.dataLayer || [];
+  if (!window.dataLayer)
+    window.dataLayer = dataLayer;
+
+  var pageType = '{{page_type}}';
 
   function clean(obj) {
     for (var propName in obj) {
@@ -23,10 +22,10 @@
     return doc.documentElement.textContent;
   }
 
-  function setCustomer() {
+  function getShopper() {
     let name = '{{customer.name}}';
     name = name.split(" ");
-    dataLayer['customer'] = clean({
+    return clean({
       customer_id: '{{customer.id}}',
       email: '{{customer.email}}',
       first_name: name[0],
@@ -34,9 +33,8 @@
     });
   }
 
-  function setProducts() {
-    dataLayer['items'] = [];
-
+  function getItems() {
+    var items = [];
 //    {{#each this}}
 //      {{#or (if @key '===' "products") (if @key '===' "category")}}
 //        {{#each this}}
@@ -58,16 +56,17 @@
                 var index = parseInt('{{@index}}');
                 item[index == 0 ? 'item_category' : `item_category${index} + 1`] = htmlDecode('{{this}}');
                 //{{/each}}
-                dataLayer['items'].push(item);
+                items.push(item);
 //             {{/each}}
 //          {{/or}}
 //       {{/each}}
 //    {{/or}}
 //  {{/each}}
+    return items;
   }
 
-  function setProduct() {
-    dataLayer['item'] = {
+  function getItem() {
+    var item = {
       item_name: htmlDecode('{{product.title}}'), // Name or ID is required.
       item_id: '{{product.id}}',
       price: parseFloat('{{product.price.without_tax.value}}'),
@@ -78,36 +77,59 @@
 
     //{{#each product.category}}
       var index = parseInt('{{@index}}');
-      dataLayer['item'][index == 0 ? 'item_category' : `item_category${index} + 1`] = htmlDecode('{{this}}');
+      item[index == 0 ? 'item_category' : `item_category${index} + 1`] = htmlDecode('{{this}}');
     //{{/each}}
+
+    return item;
   }
 
-  /*
-  Checkout Started Events
-  */
+  function pushDataLayer(event, items) {
+    dataLayer.push({
+        event: event,
+        ecommerce: {
+            items: items
+        }
+    });
+  }
 
-  //{{#if cart_id}}
-  dataLayer['cart_id'] = '{{ cart_id }}';
-  //{{/if}}
+  if (pageType == 'category') {
+    pushDataLayer('view_item_list', getItems());
+  }
+  else if (pageType === 'product') {
+    pushDataLayer('view_item', [getItem()]);
+    }
+
+  window.eecGetShopper = getShopper;
+  window.eecGetItems = getItems;
+  window.eecGetItem = getItem;
+  window.eecPushDataLayer = pushDataLayer;
+  window.eecHtmlDecode = htmlDecode;
+  window.eecClean = clean;
+
+  dataLayer['eec'] = {};
 
   //{{#or (if category.products) (if products.new) (if products.featured) (if products.top_sellers)}}
-  setProducts();
+  dataLayer['eec']['items'] = getItems();
   //{{/or}}
 
   //{{#if product}}
-  setProduct();
+  dataLayer['eec']['item'] = getItem();
+  //{{/if}}
+
+  //{{#if cart_id}}
+  dataLayer['eec']['cart_id'] = '{{ cart_id }}';
   //{{/if}}
 
   //{{#if customer}}
-  setCustomer();
+  dataLayer['eec']['shopper'] = getShopper();
   //{{/if}}
 
   //{{#if category.id}}
-  dataLayer['item_list_id'] = '{{category.id}}';
+  dataLayer['eec']['item_list_id'] = '{{category.id}}';
   //{{/if}}
 
   //{{#if category.name}}
-  dataLayer['item_list_name'] = htmlDecode('{{category.name}}');
+  dataLayer['eec']['item_list_name'] = htmlDecode('{{category.name}}');
   //{{/if}}
 })
 ();
