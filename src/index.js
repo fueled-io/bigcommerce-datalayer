@@ -49,7 +49,7 @@
   function getItems() {
     var items = [];
 //    {{#each this}}
-//      {{#or (if @key '===' "products") (if @key '===' "category") (if @key '===' "cart")}}
+//      {{#or (if @key '===' "products") (if @key '===' "category") (if @key '===' "cart") (if @key '===' "product_results")}}
 //        {{#each this}}
 //          {{#or (if @key '===' "new") (if @key '===' "featured") (if @key '===' "products") (if @key '===' "category") (if @key '===' "items")}}
 //            {{#each this}}
@@ -128,7 +128,7 @@
 
   dataLayer['eec'] = {};
 
-  //{{#or (if category.products) (if products.new) (if products.featured) (if products.top_sellers) (if cart.items)}}
+  //{{#or (if category.products) (if products.new) (if products.featured) (if products.top_sellers) (if cart.items) (if product_results.products)}}
   dataLayer['eec']['items'] = getItems();
   //{{/or}}
 
